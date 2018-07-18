@@ -61,6 +61,15 @@ const checkWinConditions = (player) => {
   return false;
 }
 
+const checkTieCondition = () => {
+  for (let i = 1; i <= Object.keys(board).length; i++) {
+    if (board[i] === ' ') {
+      return false;
+    }
+  }
+  return true;
+}
+
 const takeTurn = (player) => {
   console.log(`It is player ${player}'s turn`);
   prompt.start();
