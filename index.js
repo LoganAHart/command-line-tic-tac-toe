@@ -12,8 +12,8 @@ const board = {
   9: ' ',
 };
 
-const markBoard = (loc, icon) => {
-  board[loc] = icon.toUpperCase();
+const markBoard = (position, icon) => {
+  board[position] = icon.toUpperCase();
 };
 
 const printBoard = () => {
@@ -39,8 +39,8 @@ const playable = (val) => {
   return (x | 0) === x;
 }
 
-const validateMove = (loc) => {
-  return (playable(loc) && board[loc] === ' ');
+const validMove = (position) => {
+  return (playable(position) && board[position] === ' ');
 }
 
 const winConditions = [[1, 2, 3], [4, 5, 6], [7, 8, 9], [1, 4, 7],
@@ -73,5 +73,44 @@ const checkTieCondition = () => {
 const takeTurn = (player) => {
   console.log(`It is player ${player}'s turn`);
   prompt.start();
-  // prompt.get([''])
+  prompt.get(['position'], (err, result) => {
+    if (validMove(result.position) === true) {
+      markBoard(result.position, player);
+      printBoard();
+      if (checkWinConditions(player) === true) {
+        console.log(`Player ${player} Wins!`);
+        return;
+      }
+      if (checkTieCondition() === true) {
+        console.log('Tie Game');
+        return;
+      }
+      if (player === 'X') {
+        takeTurn('0');
+      } else {
+        takeTurn('X');
+      }
+    } else {
+      console.log('incorrect input, try again...');
+      printBoard();
+      takeTurn(player);
+    }
+  });
 };
+
+console.log(
+  `
+  GAME STARTED!
+
+  -------------
+  | 1 | 2 | 3 |
+  -------------
+  | 4 | 5 | 6 |
+  -------------
+  | 7 | 8 | 9 |
+  -------------
+  `
+);
+
+const firstTurn = Math.random() > 0.5 ? 'X' : '0';
+takeTurn(firstTurn);
