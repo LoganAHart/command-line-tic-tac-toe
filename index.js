@@ -1,4 +1,5 @@
 const prompt = require('prompt');
+const colors = require('colors/safe');
 
 const board = {
   1: ' ',
@@ -17,7 +18,7 @@ const markBoard = (position, icon) => {
 };
 
 const printBoard = () => {
-  console.log(
+  console.log(colors.white(
     `
     -------------
     | ${board[1]} | ${board[2]} | ${board[3]} |
@@ -27,7 +28,7 @@ const printBoard = () => {
     | ${board[7]} | ${board[8]} | ${board[9]} |
     -------------
     `
-  );
+  ));
 };
 
 const playable = (val) => {
@@ -71,18 +72,18 @@ const checkTieCondition = () => {
 }
 
 const takeTurn = (player) => {
-  console.log(`It is player ${player}'s turn`);
+  console.log(colors.cyan(`It is player ${player}'s turn`));
   prompt.start();
   prompt.get(['position'], (err, result) => {
     if (validMove(result.position) === true) {
       markBoard(result.position, player);
       printBoard();
       if (checkWinConditions(player) === true) {
-        console.log(`Player ${player} Wins!`);
+        console.log(colors.rainbow(`Player ${player} Wins!`));
         return;
       }
       if (checkTieCondition() === true) {
-        console.log('Tie Game');
+        console.log(colors.trap('Tie Game'));
         return;
       }
       if (player === 'X') {
@@ -91,14 +92,14 @@ const takeTurn = (player) => {
         takeTurn('X');
       }
     } else {
-      console.log('incorrect input, try again...');
+      console.log(colors.random('incorrect input, try again...'));
       printBoard();
       takeTurn(player);
     }
   });
 };
 
-console.log(
+console.log(colors.america(
   `
   GAME STARTED!
 
@@ -110,7 +111,7 @@ console.log(
   | 7 | 8 | 9 |
   -------------
   `
-);
+));
 
 const firstTurn = Math.random() > 0.5 ? 'X' : '0';
 takeTurn(firstTurn);

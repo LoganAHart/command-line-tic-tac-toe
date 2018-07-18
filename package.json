@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "Tic Tac Toe mini game on the command line, built for fun",
   "main": "index.js",
+  "scripts": {
+    "start-game": "node index.js"
+  },
   "repository": "https://github.com/LoganAHart/command-line-tic-tac-toe.git",
   "author": "Logan Hart",
   "license": "MIT",
