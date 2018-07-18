@@ -17,8 +17,8 @@ const markBoard = (position, icon) => {
   board[position] = icon.toUpperCase();
 };
 
-const printBoard = () => {
-  console.log(colors.white(
+const printBoard = (color = 'white') => {
+  console.log(colors[color](
     `
     -------------
     | ${board[1]} | ${board[2]} | ${board[3]} |
@@ -72,18 +72,26 @@ const checkTieCondition = () => {
 }
 
 const takeTurn = (player) => {
-  console.log(colors.cyan(`It is player ${player}'s turn`));
+  const team = player === 'X' ? 'red' : 'blue';
+  console.log(colors[team](`It is player ${player}'s turn`));
   prompt.start();
   prompt.get(['position'], (err, result) => {
     if (validMove(result.position) === true) {
       markBoard(result.position, player);
       printBoard();
       if (checkWinConditions(player) === true) {
-        console.log(colors.rainbow(`Player ${player} Wins!`));
+        printBoard('rainbow');
+        console.log(colors[team](`
+          ( 。・_・。)人(。・_・。 )
+        `));
+        console.log(colors[team](`Player ${player} Wins!`));
         return;
       }
       if (checkTieCondition() === true) {
-        console.log(colors.trap('Tie Game'));
+        console.log(colors.white(`
+          (╯°□°）╯︵ ┻━┻
+        `));
+        console.log(colors.white('Tie Game'));
         return;
       }
       if (player === 'X') {
