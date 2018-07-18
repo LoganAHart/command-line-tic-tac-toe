@@ -46,6 +46,21 @@ const validateMove = (loc) => {
 const winConditions = [[1, 2, 3], [4, 5, 6], [7, 8, 9], [1, 4, 7],
 [2, 5, 8], [3, 6, 9], [1, 5, 9], [3, 5, 7]];
 
+const checkWinConditions = (player) => {
+  for (let i = 0; i < winConditions.length; i++) {
+    let moves = 0;
+    for (let j = 0; j < winConditions[i].length; j++) {
+      if (board[winConditions[i][j]] === player) {
+        moves += 1;
+      }
+      if (moves === 3) {
+        return true;
+      }
+    }
+  }
+  return false;
+}
+
 const takeTurn = (player) => {
   console.log(`It is player ${player}'s turn`);
   prompt.start();
