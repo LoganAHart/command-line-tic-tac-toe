@@ -88,6 +88,9 @@ const takeTurn = (player) => {
         return;
       }
       if (checkTieCondition() === true) {
+        console.log(colors.white(`
+          (╯°□°）╯︵ ┻━┻
+        `));
         console.log(colors.white('Tie Game'));
         return;
       }
